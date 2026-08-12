@@ -1,0 +1,131 @@
+/* ─── REGISTRATION MODAL ───────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  background: rgba(4,6,13,0.85);
+  backdrop-filter: blur(16px);
+  overflow-y: auto;
+}
+.modal-box {
+  position: relative;
+  width: 100%; max-width: 32rem;
+  background: var(--c-surface);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  margin: 2rem 0;
+  box-shadow: 0 0 80px rgba(0,0,0,0.6);
+  animation: slideUp 0.35s ease both;
+}
+.modal-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: var(--c-surface2); border: 1px solid var(--c-border);
+  color: var(--c-muted); border-radius: 0.6rem;
+  padding: 0.35rem; cursor: pointer; transition: color 0.2s;
+}
+.modal-close:hover { color: #fff; }
+
+/* Step indicator */
+.modal-steps {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.step-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #1E293B; transition: background 0.3s, box-shadow 0.3s;
+}
+.step-dot.done { background: var(--c-green); }
+.step-dot.active {
+  background: var(--c-gold);
+  box-shadow: 0 0 10px rgba(255,184,0,0.6);
+  animation: pulseRing 1.5s ease-in-out infinite;
+}
+.step-line { flex: 1; height: 2px; background: #1E293B; border-radius: 1px; }
+.step-label { font-size: 0.65rem; font-weight: 800; color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-left: auto; }
+
+/* Error banner with subtle shake feedback */
+.modal-error {
+  display: flex; align-items: center; gap: 0.6rem;
+  background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.4);
+  border-radius: 0.75rem; padding: 0.75rem 1rem;
+  font-size: 0.82rem; font-weight: 700; color: #F87171;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 16px rgba(239,68,68,0.15);
+  animation: modalShake 0.3s ease-in-out;
+}
+
+@keyframes modalShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Step content */
+.modal-step-title { font-family: var(--font-head); font-size: 1.5rem; font-weight: 900; color: #fff; text-transform: uppercase; margin-bottom: 0.25rem; }
+.modal-step-sub { font-size: 0.8rem; color: var(--c-muted); margin-bottom: 1.25rem; }
+
+/* Google Sign-in button */
+.btn-google {
+  width: 100%; background: #fff; color: #111;
+  font-weight: 800; font-size: 0.95rem;
+  padding: 0.95rem 1.5rem; border-radius: 0.85rem; border: none;
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+  cursor: pointer; box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-google:hover { background: #F1F5F9; transform: translateY(-2px); }
+
+/* UPI Payment box */
+.upi-box {
+  background: var(--c-surface2);
+  border: 1px solid rgba(0,232,122,0.2);
+  border-radius: 1rem; padding: 1rem;
+  text-align: center; margin-bottom: 1rem;
+}
+.upi-qr-frame {
+  width: 9rem; height: 9rem;
+  background: #fff; padding: 0.5rem;
+  border-radius: 0.875rem; margin: 0 auto 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.upi-qr-frame img { width: 100%; height: 100%; object-fit: contain; }
+.upi-scan-hint { font-size: 0.7rem; color: var(--c-muted); margin-bottom: 0.5rem; }
+.upi-id-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: #04060D; border: 1px solid #1E293B;
+  padding: 0.45rem 0.85rem; border-radius: 0.6rem;
+  font-family: monospace; font-size: 0.8rem; color: var(--c-green);
+}
+.upi-amount { font-size: 0.75rem; color: var(--c-gold); font-weight: 800; margin-top: 0.5rem; }
+
+/* Screenshot uploader */
+.upload-zone {
+  border: 2px dashed #1E293B;
+  border-radius: 0.875rem; padding: 1.5rem 1rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  cursor: pointer; transition: border-color 0.2s, background 0.2s;
+  background: rgba(4,6,13,0.5);
+}
+.upload-zone:hover { border-color: rgba(0,232,122,0.5); background: rgba(0,232,122,0.03); }
+.upload-zone-text { font-size: 0.8rem; font-weight: 600; color: #94A3B8; }
+.upload-zone-hint { font-size: 0.7rem; color: var(--c-muted); }
+
+.upload-preview {
+  position: relative; border-radius: 0.875rem; overflow: hidden;
+  border: 1px solid rgba(0,232,122,0.35);
+  background: var(--c-surface2);
+  max-height: 9rem; display: flex; align-items: center; justify-content: center;
+  padding: 0.5rem;
+}
+.upload-preview img { max-height: 8rem; object-fit: contain; border-radius: 0.6rem; }
+.upload-remove {
+  position: absolute; top: 0.4rem; right: 0.4rem;
+  background: rgba(239,68,68,0.85); color: #fff;
+  font-size: 0.7rem; font-weight: 800;
+  padding: 0.2rem 0.5rem; border-radius: 0.4rem; border: none; cursor: pointer;
+}
+
+/* Modal action row */
+.modal-actions { display: flex; gap: 0.75rem; padding-top: 0.75rem; }

@@ -1,0 +1,141 @@
+/* ─── DIGITAL MATCH PASS ───────────────────────────────────── */
+.pass-page { max-width: 26rem; margin: 0 auto; padding: 2rem 1rem; }
+
+.pass-header-row {
+  text-align: center; margin-bottom: 1.5rem;
+}
+.pass-official-pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(0,232,122,0.1); border: 1px solid rgba(0,232,122,0.25);
+  color: var(--c-green);
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 0.4rem 1rem; border-radius: 999px; margin-bottom: 0.5rem;
+}
+.pass-save-hint { font-size: 0.7rem; color: var(--c-muted); }
+
+/* The ticket card itself */
+.pass-card {
+  position: relative; overflow: hidden;
+  background: linear-gradient(160deg, #0B1120 0%, #04060D 60%, #0D1A10 100%);
+  border: 2px solid rgba(255,184,0,0.35);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 0 60px rgba(255,184,0,0.15), 0 0 120px rgba(0,232,122,0.08);
+}
+.pass-card-glow-tl {
+  position: absolute; top: -40px; right: -40px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,184,0,0.2), transparent);
+  pointer-events: none;
+}
+.pass-card-glow-br {
+  position: absolute; bottom: -40px; left: -40px;
+  width: 150px; height: 150px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,232,122,0.15), transparent);
+  pointer-events: none;
+}
+.pass-card-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(0,232,122,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,232,122,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Pass header */
+.pass-top-row {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 0.875rem; margin-bottom: 0.875rem;
+  position: relative; z-index: 1;
+}
+.pass-club-mark {
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.pass-logo {
+  width: 38px; height: 38px; border-radius: 0.6rem;
+  border: 2px solid rgba(255,184,0,0.5);
+  object-fit: contain; background: #FFFFFF;
+  padding: 3px;
+  box-shadow: 0 0 14px rgba(255,184,0,0.3);
+}
+.pass-club-name {
+  font-family: var(--font-head);
+  font-size: 0.85rem; font-weight: 900;
+  text-transform: uppercase; color: #fff; line-height: 1.1;
+}
+.pass-club-date { font-size: 0.65rem; color: var(--c-muted); font-weight: 600; }
+
+.pass-ticket-id-block { text-align: right; }
+.pass-ticket-label { font-size: 0.6rem; color: var(--c-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.pass-ticket-id {
+  font-family: var(--font-head);
+  font-size: 1.4rem; font-weight: 900;
+  color: var(--c-gold); letter-spacing: 0.08em;
+  text-shadow: 0 0 12px rgba(255,184,0,0.5);
+}
+
+/* Player info row */
+.pass-player-row {
+  display: flex; align-items: center; gap: 0.875rem;
+  background: rgba(4,6,13,0.7); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 1rem; padding: 0.875rem;
+  margin-bottom: 0.875rem; position: relative; z-index: 1;
+}
+.pass-player-avatar {
+  width: 64px; height: 64px; border-radius: 0.875rem;
+  border: 2px solid rgba(0,232,122,0.7); object-fit: cover;
+  box-shadow: 0 0 16px rgba(0,232,122,0.3);
+}
+.pass-player-name {
+  font-family: var(--font-head);
+  font-size: 1.4rem; font-weight: 900; color: #fff;
+  text-transform: uppercase; line-height: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pass-player-pos {
+  font-size: 0.7rem; font-weight: 800; color: var(--c-green);
+  text-transform: uppercase; letter-spacing: 0.1em; margin: 0.2rem 0;
+}
+.pass-player-phone { font-size: 0.7rem; color: var(--c-muted); font-family: monospace; }
+
+/* Status banner */
+.pass-status-row {
+  text-align: center; margin-bottom: 0.875rem; position: relative; z-index: 1;
+}
+
+/* QR Code box */
+.pass-qr-box {
+  background: #fff; border-radius: 1.25rem;
+  padding: 1rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin-bottom: 0.875rem; position: relative; z-index: 1;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+.pass-qr-label {
+  font-family: monospace; font-size: 0.6rem; font-weight: 800;
+  color: #475569; margin-top: 0.5rem; letter-spacing: 0.08em;
+}
+
+/* Footer details row */
+.pass-footer-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.75rem; position: relative; z-index: 1;
+}
+.pass-footer-key { font-size: 0.6rem; color: var(--c-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+.pass-footer-val { font-size: 0.75rem; color: var(--c-text); font-weight: 600; font-family: monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Download button */
+.pass-download-btn {
+  width: 100%; margin-top: 1.25rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  background: linear-gradient(135deg, var(--c-gold), #FF6B00);
+  color: #000; font-family: var(--font-head);
+  font-weight: 900; font-size: 1rem; letter-spacing: 0.05em;
+  padding: 1rem; border-radius: 0.85rem; border: none;
+  cursor: pointer; box-shadow: 0 0 30px rgba(255,184,0,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pass-download-btn:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(255,184,0,0.6); }
+.pass-download-btn:disabled { opacity: 0.7; cursor: wait; }

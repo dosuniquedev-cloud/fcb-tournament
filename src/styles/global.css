@@ -1,0 +1,289 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Barlow+Condensed:wght@400;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* ─── DESIGN TOKENS ─────────────────────────────────────── */
+:root {
+  --c-bg:          #04060D;
+  --c-surface:     #0B1120;
+  --c-surface2:    #111827;
+  --c-green:       #00E87A;
+  --c-green-dim:   #10B981;
+  --c-gold:        #FFB800;
+  --c-gold-dim:    #D97706;
+  --c-blue:        #3B82F6;
+  --c-red:         #EF4444;
+  --c-text:        #F8FAFC;
+  --c-muted:       #94A3B8;
+  --c-border:      rgba(255,255,255,0.12);
+  --font-head:     'Barlow Condensed', sans-serif;
+  --font-body:     'Outfit', sans-serif;
+  --glow-green:    0 0 40px rgba(0,232,122,0.35);
+  --glow-gold:     0 0 40px rgba(255,184,0,0.35);
+}
+
+/* ─── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ─── SCROLLBAR ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--c-bg); }
+::-webkit-scrollbar-thumb { background: #1E293B; border-radius: 99px; }
+
+/* ─── FUTURISTIC PARALLAX STADIUM BACKGROUND ─────────────── */
+.bg-atmosphere {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: url('/futuristic_indian_stadium.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  filter: brightness(0.45) contrast(1.2) saturate(1.2);
+}
+.bg-atmosphere::before {
+  content: '';
+  position: absolute; top: -10%; left: -10%;
+  width: 60vw; height: 60vw; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,232,122,0.12) 0%, transparent 70%);
+  animation: drift1 12s ease-in-out infinite alternate;
+  filter: blur(40px);
+}
+.bg-atmosphere-overlay {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: 
+    radial-gradient(ellipse at 50% 20%, rgba(4,6,13,0.55) 0%, rgba(4,6,13,0.92) 75%, #04060D 100%),
+    linear-gradient(to bottom, rgba(4,6,13,0.7) 0%, transparent 40%, #04060D 100%);
+}
+
+/* ─── KEYFRAMES ────────────────────────────────────────────── */
+@keyframes drift1 {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(5%,8%) scale(1.1); }
+}
+@keyframes drift2 {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(-5%,-6%) scale(1.12); }
+}
+@keyframes pulseRing {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  50%  { transform: scale(1.05); opacity: 0.6; }
+  100% { transform: scale(1);   opacity: 0.9; }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes scanLine {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes borderGlow {
+  0%,100% { border-color: rgba(0,232,122,0.3); box-shadow: 0 0 15px rgba(0,232,122,0.1); }
+  50%      { border-color: rgba(0,232,122,0.7); box-shadow: 0 0 35px rgba(0,232,122,0.3); }
+}
+
+/* ─── UTILITY CLASSES ─────────────────────────────────────── */
+.animate-slide-up  { animation: slideUp  0.5s ease both; }
+.animate-fade-in   { animation: fadeIn   0.4s ease both; }
+.animate-pulse-ring { animation: pulseRing 2s ease-in-out infinite; }
+.animate-border-glow { animation: borderGlow 3s ease-in-out infinite; }
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+
+/* ─── GLASS PANELS ─────────────────────────────────────────── */
+.glass {
+  background: rgba(11,17,32,0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--c-border);
+  border-radius: 1.25rem;
+}
+.glass-green {
+  background: rgba(11,17,32,0.85);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(0,232,122,0.25);
+  border-radius: 1.25rem;
+  box-shadow: 0 0 30px rgba(0,232,122,0.08);
+}
+.glass-gold {
+  background: rgba(11,17,32,0.85);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,184,0,0.3);
+  border-radius: 1.25rem;
+  box-shadow: var(--glow-gold);
+}
+
+/* ─── BUTTONS ──────────────────────────────────────────────── */
+.btn-green {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: linear-gradient(135deg, var(--c-green) 0%, #00C86A 100%);
+  color: #000;
+  font-family: var(--font-head);
+  font-weight: 800; font-size: 1rem; letter-spacing: 0.04em;
+  padding: 0.875rem 2rem; border-radius: 0.75rem; border: none;
+  cursor: pointer; position: relative; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,232,122,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-green::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.4s;
+}
+.btn-green:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,232,122,0.7); }
+.btn-green:hover::after { transform: translateX(100%); }
+.btn-green:active { transform: translateY(0); }
+
+.btn-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: linear-gradient(135deg, var(--c-gold) 0%, #FF8C00 100%);
+  color: #000;
+  font-family: var(--font-head);
+  font-weight: 900; font-size: 1rem; letter-spacing: 0.05em;
+  padding: 0.875rem 2rem; border-radius: 0.75rem; border: none;
+  cursor: pointer; position: relative; overflow: hidden;
+  box-shadow: 0 4px 20px rgba(255,184,0,0.5);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-gold:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(255,184,0,0.7); }
+.btn-gold:active { transform: translateY(0); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.06);
+  color: var(--c-text); font-weight: 600;
+  padding: 0.75rem 1.25rem; border-radius: 0.75rem;
+  border: 1px solid var(--c-border);
+  cursor: pointer; transition: background 0.2s, border-color 0.2s;
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+
+/* ─── STATUS BADGES ────────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.3rem 0.8rem; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.badge-pending  { background: rgba(255,184,0,0.12);  color: #FFB800; border: 1px solid rgba(255,184,0,0.3); }
+.badge-approved { background: rgba(0,232,122,0.12);  color: #00E87A; border: 1px solid rgba(0,232,122,0.3); }
+.badge-rejected { background: rgba(239,68,68,0.12);  color: #F87171; border: 1px solid rgba(239,68,68,0.3); }
+
+/* ─── FORM INPUTS ──────────────────────────────────────────── */
+.fcb-input {
+  width: 100%; background: rgba(4,6,13,0.9);
+  border: 1px solid #1E293B;
+  color: var(--c-text);
+  padding: 0.875rem 1rem; border-radius: 0.75rem;
+  font-family: var(--font-body); font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fcb-input:focus {
+  outline: none;
+  border-color: var(--c-green);
+  box-shadow: 0 0 0 3px rgba(0,232,122,0.15);
+}
+.fcb-input::placeholder { color: #475569; }
+
+.fcb-label {
+  display: block; font-size: 0.8rem; font-weight: 700;
+  color: var(--c-muted); text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+/* ─── HEADING STYLES ───────────────────────────────────────── */
+.heading-display {
+  font-family: var(--font-head);
+  font-weight: 900; line-height: 0.95;
+  text-transform: uppercase; letter-spacing: -0.01em;
+}
+.text-gradient-green {
+  background: linear-gradient(135deg, #00E87A 0%, #00C6FF 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FFB800 0%, #FF6B00 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.text-shimmer {
+  background: linear-gradient(90deg, #FFB800, #fff, #FFB800);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* ─── STAT CARD ────────────────────────────────────────────── */
+.stat-card {
+  background: var(--c-surface2);
+  border: 1px solid var(--c-border);
+  border-radius: 1rem; padding: 1rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.stat-card:hover { border-color: rgba(0,232,122,0.3); transform: translateY(-2px); }
+
+/* ─── PROGRESS BAR ─────────────────────────────────────────── */
+.progress-track {
+  width: 100%; height: 10px;
+  background: #0F172A; border-radius: 999px;
+  overflow: hidden; border: 1px solid rgba(255,255,255,0.05);
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--c-green) 0%, #00C6FF 50%, var(--c-gold) 100%);
+  border-radius: 999px;
+  transition: width 1s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: 0 0 12px rgba(0,232,122,0.6);
+}
+
+/* ─── POSITION PILL SELECTOR ───────────────────────────────── */
+.pos-btn {
+  padding: 0.75rem; border-radius: 0.75rem;
+  border: 1px solid #1E293B;
+  background: #0B1120;
+  color: var(--c-muted);
+  font-weight: 700; font-size: 0.8rem;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  cursor: pointer; transition: all 0.2s;
+}
+.pos-btn:hover { border-color: rgba(0,232,122,0.4); color: var(--c-green); }
+.pos-btn.active {
+  background: rgba(0,232,122,0.12);
+  border-color: var(--c-green);
+  color: var(--c-green);
+  box-shadow: 0 0 12px rgba(0,232,122,0.2);
+}
+
+/* ─── SCANLINE OVERLAY ─────────────────────────────────────── */
+.scanline-overlay {
+  position: absolute; inset: 0; pointer-events: none; overflow: hidden;
+}
+.scanline-overlay::after {
+  content: '';
+  position: absolute; left: 0; right: 0; height: 60px;
+  background: linear-gradient(to bottom, transparent, rgba(0,232,122,0.06), transparent);
+  animation: scanLine 4s linear infinite;
+}

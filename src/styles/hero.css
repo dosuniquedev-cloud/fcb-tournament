@@ -1,0 +1,208 @@
+/* ─── HERO SECTION ─────────────────────────────────────────── */
+.hero-wrap {
+  position: relative; z-index: 1;
+  max-width: 72rem; margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+}
+
+/* Top "LIVE" pill row */
+.hero-badges {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.hero-live-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(0,232,122,0.1);
+  border: 1px solid rgba(0,232,122,0.25);
+  padding: 0.45rem 1rem; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 800;
+  color: var(--c-green); text-transform: uppercase; letter-spacing: 0.1em;
+}
+.hero-live-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--c-green);
+  animation: pulseRing 1.8s ease-in-out infinite;
+}
+.hero-free-pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--c-surface2); border: 1px solid var(--c-border);
+  padding: 0.4rem 0.85rem; border-radius: 999px;
+  font-size: 0.7rem; font-weight: 700; color: var(--c-muted);
+}
+
+/* The main title block */
+.hero-title-block { margin-bottom: 1.25rem; }
+.hero-eyebrow {
+  font-family: var(--font-head);
+  font-size: 0.8rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.3em;
+  color: var(--c-gold); margin-bottom: 0.4rem;
+  text-shadow: 0 0 12px rgba(255,184,0,0.4);
+}
+.hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  font-weight: 900; text-transform: uppercase;
+  line-height: 0.92; letter-spacing: -0.01em;
+  color: #ffffff;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.7);
+}
+.hero-title > span { display: block; }
+
+/* ── CINEMATIC WORD SWAP SYSTEM ─────────────────────────────── */
+.hero-dynamic-word-container {
+  display: block;
+  overflow: visible;
+  line-height: 1.08;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.animated-word-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.03em;
+  white-space: nowrap;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Each character base — clean text with zero background box */
+.anim-char {
+  display: inline-block;
+  font-weight: 900;
+  will-change: transform, opacity;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* IN: chars bloom in from scale(0) → scale(1) */
+.anim-char--in {
+  animation: charBloomIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* OUT: chars collapse to scale(0) */
+.anim-char--out {
+  animation: charBloomOut 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+.anim-emoji {
+  font-size: 0.72em;
+  margin-left: 0.1em;
+}
+
+@keyframes charBloomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) skewX(-12deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.12) skewX(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) skewX(0deg);
+  }
+}
+
+@keyframes charBloomOut {
+  0% {
+    opacity: 1;
+    transform: scale(1) skewX(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2) skewX(10deg);
+  }
+}
+
+.hero-subtitle {
+  font-size: 0.95rem; color: #CBD5E1;
+  max-width: 42rem; margin-top: 1rem;
+  line-height: 1.7; font-weight: 500;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.85);
+}
+
+/* Meta info cards row */
+.hero-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1.75rem;
+}
+@media (min-width: 640px) {
+  .hero-meta-grid { grid-template-columns: repeat(4, 1fr); }
+}
+.hero-meta-card {
+  background: rgba(11, 17, 32, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 1rem; padding: 0.9rem 1rem;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+.hero-meta-card:hover { border-color: rgba(0,232,122,0.4); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,0.6); }
+.hero-meta-icon {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.65rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.1em; margin-bottom: 0.35rem;
+}
+.hero-meta-val { font-weight: 800; color: #fff; font-size: 0.9rem; line-height: 1.2; text-shadow: 0 1px 4px rgba(0,0,0,0.6); }
+.hero-meta-sub { font-size: 0.72rem; color: #94A3B8; margin-top: 0.15rem; font-weight: 600; }
+
+/* Slot counter block */
+.hero-slot-box {
+  background: rgba(11, 17, 32, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 1rem; padding: 1rem 1.25rem;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+.hero-slot-header {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.75rem; font-weight: 800; margin-bottom: 0.6rem;
+}
+.hero-slot-count { color: var(--c-green); font-family: var(--font-head); font-size: 1rem; }
+
+/* CTA Row */
+.hero-cta-row {
+  display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;
+}
+@media (min-width: 640px) {
+  .hero-cta-row { flex-direction: row; align-items: center; }
+}
+.hero-trust-row {
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 0.75rem; font-weight: 600; color: var(--c-muted);
+}
+.hero-trust-item { display: flex; align-items: center; gap: 0.35rem; }
+
+/* Sold out banner */
+.hero-sold-out {
+  width: 100%; text-align: center;
+  padding: 0.85rem; border-radius: 0.9rem;
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #F87171; font-weight: 800;
+  font-family: var(--font-head); letter-spacing: 0.05em;
+}
+
+/* View Pass button pill (existing player) */
+.hero-pass-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: linear-gradient(135deg, #FFB800 0%, #FF6B00 100%);
+  color: #000; font-family: var(--font-head);
+  font-weight: 900; font-size: 1rem; letter-spacing: 0.05em;
+  padding: 1rem 2rem; border-radius: 0.85rem; border: none;
+  cursor: pointer; box-shadow: 0 0 30px rgba(255,184,0,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+@media (min-width: 640px) { .hero-pass-btn { width: auto; } }
+.hero-pass-btn:hover { transform: translateY(-3px); box-shadow: 0 0 50px rgba(255,184,0,0.6); }
