@@ -66,8 +66,26 @@ export const updatePlayerStatusLocal = (id: string, status: 'pending' | 'approve
 // AUTH HELPERS
 export const signInWithGoogle = async () => {
   if (isFirebaseConfigured && auth) {
-    const result = await signInWithPopup(auth, googleProvider);
-    return result.user;
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      return result.user;
+    } catch (error: any) {
+      console.warn("Firebase Auth popup notice:", error);
+      // Fallback if Google Auth provider is not enabled yet in Firebase Console
+      if (error?.code === 'auth/configuration-not-found' || error?.code === 'auth/operation-not-allowed') {
+        const userName = prompt("Google Auth is pending enable in Firebase Console. Enter your name to register:") || "FCB Footballer";
+        const userEmail = prompt("Enter your email address:") || "player@example.com";
+        const mockUser = {
+          uid: 'player_' + Date.now(),
+          displayName: userName,
+          email: userEmail,
+          photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'
+        };
+        localStorage.setItem(MOCK_USER_KEY, JSON.stringify(mockUser));
+        return mockUser as unknown as User;
+      }
+      throw error;
+    }
   } else {
     // Mock Google User for immediate local preview
     const mockUser = {
