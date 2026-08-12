@@ -26,6 +26,7 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
 }) => {
   const [step, setStep] = useState<'auth' | 'details' | 'payment'>(user ? 'details' : 'auth');
   const [name, setName] = useState(user?.displayName || '');
+  const [email, setEmail] = useState(user?.email || '');
   const [phone, setPhone] = useState('');
   const [position, setPosition] = useState<PlayingPosition>('Midfielder');
   const [utr, setUtr] = useState('');
@@ -36,6 +37,18 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
   const [ocrKeywords, setOcrKeywords] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
+  const handleDirectRegistration = () => {
+    setUser({
+      uid: 'player_' + Date.now(),
+      displayName: '',
+      email: '',
+      photoURL: null
+    });
+    setName('');
+    setEmail('');
+    setStep('details');
+  };
+
   const handleGoogleAuth = async () => {
     try {
       setLoading(true); setError(null);
@@ -43,19 +56,12 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
       if (u) {
         setUser({ uid: u.uid, displayName: u.displayName, email: u.email, photoURL: u.photoURL });
         setName(u.displayName || 'FCB Footballer');
+        if (u.email) setEmail(u.email);
         setStep('details');
       }
     } catch (e: any) {
       console.warn("Auth error handled gracefully:", e);
-      const fallbackUser = {
-        uid: 'player_' + Date.now(),
-        displayName: 'FCB Footballer',
-        email: 'player@example.com',
-        photoURL: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80'
-      };
-      setUser(fallbackUser);
-      setName(fallbackUser.displayName);
-      setStep('details');
+      handleDirectRegistration();
     } finally {
       setLoading(false);
     }
@@ -97,10 +103,20 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
       setError('Please enter your full name');
       return;
     }
+    if (!email.trim() || !email.includes('@')) {
+      setError('Please enter a valid email address for pass delivery');
+      return;
+    }
     if (!phone || phone.length !== 10 || !isValidIndianMobile(phone)) {
       setError('Please enter your correct WhatsApp number!!!');
       return;
     }
+    setUser({
+      uid: user?.uid || 'player_' + Date.now(),
+      displayName: name.trim(),
+      email: email.trim(),
+      photoURL: user?.photoURL || null
+    });
     setError(null);
     setStep('payment');
   };
@@ -186,8 +202,8 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
             <div style={{ width: 56, height: 56, borderRadius: '1rem', background: 'rgba(0,232,122,0.1)', border: '1px solid rgba(0,232,122,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1rem' }}>
               <UserIcon size={26} color="var(--c-green)" />
             </div>
-            <div className="modal-step-title">Sign In</div>
-            <p className="modal-step-sub">1-tap Google auth — no password needed.</p>
+            <div className="modal-step-title">Player Sign In</div>
+            <p className="modal-step-sub">Sign in with Google or register directly in 1 click.</p>
             <button onClick={handleGoogleAuth} disabled={loading} className="btn-google">
               {loading ? <Loader2 size={18} className="animate-spin" /> : (
                 <>
@@ -201,6 +217,21 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
                 </>
               )}
             </button>
+
+            <div style={{ margin: '1rem 0 0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--c-muted)', fontSize: '0.75rem' }}>
+              <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.1)' }} />
+              <span>OR</span>
+              <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.1)' }} />
+            </div>
+
+            <button
+              type="button"
+              onClick={handleDirectRegistration}
+              className="btn-green w-full py-2.5"
+              style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.85rem' }}
+            >
+              ⚡ Direct Registration (No Google Account Required)
+            </button>
           </div>
         )}
 
@@ -213,6 +244,10 @@ export const RegistrationModal: React.FC<RegistrationModalProps> = ({
               <div>
                 <label className="fcb-label">Full Name</label>
                 <input type="text" required value={name} onChange={e => { setName(e.target.value); setError(null); }} className="fcb-input" placeholder="e.g. Rahul Sharma" />
+              </div>
+              <div>
+                <label className="fcb-label">Email Address (For Match Pass Delivery)</label>
+                <input type="email" required value={email} onChange={e => { setEmail(e.target.value); setError(null); }} className="fcb-input" placeholder="e.g. player@gmail.com" />
               </div>
               <div>
                 <label className="fcb-label">WhatsApp Number (India)</label>
